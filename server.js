@@ -8,7 +8,8 @@ const sqlConfig = require('./sqlconfig/config.json')
 const shortId = require('shortid')
 const cors = require('cors')
 const helmet = require('helmet')
-const port = 443
+const portSec = 443
+const portUnsec = 80
 let pool
 
 app.use(helmet())
@@ -78,8 +79,15 @@ app.get('*',(req,res)=>{
 		},
 		app
 	)
-	.listen(port, () => {
-		console.log(`running on port ${port}`)
+	.listen(portSec, () => {
+		console.log(`running on port ${portSec}`)
+	}) 
+  https
+	.createServer(
+		app
+	)
+	.listen(portUnsec, () => {
+		console.log(`running on port ${portUnsec}`)
 	}) 
 })()
 
