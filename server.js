@@ -82,7 +82,7 @@ app.get('*',(req,res)=>{
 	.listen(portSec, () => {
 		console.log(`running on port ${portSec}`)
 	}) 
-  app.listen( portUnsec , () => console.log(`Server on`));
+  
 })()
 
 /* ;(async () => {
