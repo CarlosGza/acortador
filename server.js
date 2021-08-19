@@ -65,24 +65,24 @@ app.get('*',(req,res)=>{
   res.send('ruta invalida')
 })
 
-/* ;(async () => {
+;(async () => {
   pool = new sql.ConnectionPool(sqlConfig.dev)
   await pool.connect()
   https
 	.createServer(
 		{
-			pfx: fs.readFileSync('E:\\NodeJs-HtmlToImage\\Api\\marcatel.pfx'),
-			passphrase: 'marcatel',
+			cert: fs.readFileSync('/etc/letsencrypt/live/mtel.ai/fullchain.pem'),
+			key: fs.readFileSync('/etc/letsencrypt/live/mtel.ai/privkey.pem'),
 		},
 		app
 	)
-	.listen(port, () => {
+	.listen(443, () => {
 		console.log(`running on port ${port}`)
 	}) 
-})() */
+})()
 
-;(async () => {
+/* ;(async () => {
   pool = new sql.ConnectionPool(sqlConfig.dev)
   await pool.connect()
-  app.listen( 80 , () => console.log(`Server on`));
-})()
+  app.listen( 443 , () => console.log(`Server on`));
+})() */
