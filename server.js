@@ -39,7 +39,7 @@ app.post('/acortador', async (req, res) => {
     // res.send({})
     res.send({ fullUrl: newShort.recordset[0].full, shortUrl: urlDominio + newShort.recordset[0].short })
   } catch (err) {
-    // console.log(err)
+    console.log(err)
     res.status(500).json({ descripcion: 'error al generar liga corta' })
   }
 })
