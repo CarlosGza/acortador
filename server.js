@@ -84,5 +84,5 @@ app.get('*',()=>{
 ;(async () => {
   pool = new sql.ConnectionPool(sqlConfig.dev)
   await pool.connect()
-  app.listen( 8080 , () => console.log(`Server on`));
+  app.listen( 80 , () => console.log(`Server on`));
 })()
