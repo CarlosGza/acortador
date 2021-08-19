@@ -82,13 +82,7 @@ app.get('*',(req,res)=>{
 	.listen(portSec, () => {
 		console.log(`running on port ${portSec}`)
 	}) 
-  https
-	.createServer(
-		app
-	)
-	.listen(portUnsec, () => {
-		console.log(`running on port ${portUnsec}`)
-	}) 
+  app.listen( portUnsec , () => console.log(`Server on`));
 })()
 
 /* ;(async () => {
