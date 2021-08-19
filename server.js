@@ -61,6 +61,10 @@ app.get('/:shortUrl', async (req, res) => {
   }
 })
 
+app.get('*',()=>{
+  res.send('ruta invalida')
+})
+
 /* ;(async () => {
   pool = new sql.ConnectionPool(sqlConfig.dev)
   await pool.connect()
