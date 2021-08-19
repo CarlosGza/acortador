@@ -61,7 +61,7 @@ app.get('/:shortUrl', async (req, res) => {
   }
 })
 
-app.get('*',()=>{
+app.get('*',(req,res)=>{
   res.send('ruta invalida')
 })
 
