@@ -3,7 +3,7 @@ const fs = require('fs')
 const sql = require('mssql')
 const app = express()
 const https = require('https')
-const urlDominio = 'http://mtelservice1:8080/'
+const urlDominio = 'https://mtel.ai/'
 const sqlConfig = require('./sqlconfig/config.json')
 const shortId = require('shortid')
 const cors = require('cors')
@@ -68,7 +68,7 @@ app.get('*',(req,res)=>{
 })
 
 ;(async () => {
-  pool = new sql.ConnectionPool(sqlConfig.dev)
+  pool = new sql.ConnectionPool(sqlConfig.prod)
   await pool.connect()
   https
 	.createServer(
