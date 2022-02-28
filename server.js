@@ -10,6 +10,7 @@ const cors = require('cors')
 const helmet = require('helmet')
 const portSec = 443
 const portUnsec = 80
+let regex = new RegExp(/^(http|https):\/\/(?:(?:(?:[\w\.\-\+!$&'\(\)*\+,;=]|%[0-9a-f]{2})+:)*(?:[\w\.\-\+%!$&'\(\)*\+,;=]|%[0-9a-f]{2})+@)?(?:(?:[a-z0-9\-\.]|%[0-9a-f]{2})+|(?:\[(?:[0-9a-f]{0,4}:)*(?:[0-9a-f]{0,4})\]))(?::[0-9]+)?(?:[\/|\?](?:[\w#!:\.\?\+=&@!$'~*,;\/\(\)\[\]\-]|%[0-9a-f]{2})*)?$/)
 let pool
 
 app.use(helmet())
@@ -24,7 +25,7 @@ app.post('/acortador', async (req, res) => {
 
   if (req.body.usuario == undefined || req.body.password == undefined)
     return res.status(401).json({ descripcion: 'credenciales invalidas' })
-  if (req.body.fullUrl == undefined || req.body.fullUrl.length < 5)
+  if (req.body.fullUrl == undefined || !regex.test(req.body.fullUrl))
     return res.status(400).json({ descripcion: 'url invalida' })
   
   try {
@@ -88,5 +89,5 @@ app.get('*',(req,res)=>{
 /* ;(async () => {
   pool = new sql.ConnectionPool(sqlConfig.dev)
   await pool.connect()
-  app.listen( 443 , () => console.log(`Server on`));
+  app.listen( 8080 , () => console.log(`Server on`));
 })() */
