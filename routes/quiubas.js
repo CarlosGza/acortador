@@ -5,7 +5,7 @@ const db = require('../db/db')
 let pool 
 let credenciales = {
   user: 'PQUIUBAS2018',
-  password: 'PQuiubas2018'
+  password: 'UFF1aXViYXMyMDE4'
 }
 router.post('/api/quiubas/webhook_mo', async (req, res) => {
   pool = await db.getConn()
