@@ -2,7 +2,7 @@
   "prod": {
     "user": "sysdbo",
     "password": "QxaAvTeG",
-    "server": "mtelsqlsms2",
+    "server": "172.16.5.17",
     "database": "SMSCargas",
     "connectionTimeout": 300000,
     "requestTimeout": 300000,
@@ -16,7 +16,7 @@
   "qa": {
     "user": "sysdbo",
     "password": "QxaAvTeG",
-    "server": "MTELQASQLSMS2",
+    "server": "172.16.5.55",
     "database": "SMSCargas",
     "connectionTimeout": 300000,
     "requestTimeout": 300000,
@@ -30,7 +30,7 @@
   "dev": {
     "user": "sysdbo",
     "password": "desarrollo",
-    "server": "MTELTESTSQL2",
+    "server": "172.16.5.159",
     "database": "SMSCargas",
     "connectionTimeout": 300000,
     "requestTimeout": 300000,
@@ -38,9 +38,7 @@
       "encrypt": false
     },
     "pool": {
-      "idleTimeoutMillis": 30000,
-      "max": 10,
-      "min": 0
+      "idleTimeoutMillis": 30000
     }
   }
 }
