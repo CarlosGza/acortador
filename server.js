@@ -12,12 +12,17 @@ const portSec = 443
 const portUnsec = 80
 let regex = new RegExp(/^(http|https):\/\/(?:(?:(?:[\w\.\-\+!$&'\(\)*\+,;=]|%[0-9a-f]{2})+:)*(?:[\w\.\-\+%!$&'\(\)*\+,;=]|%[0-9a-f]{2})+@)?(?:(?:[a-z0-9\-\.]|%[0-9a-f]{2})+|(?:\[(?:[0-9a-f]{0,4}:)*(?:[0-9a-f]{0,4})\]))(?::[0-9]+)?(?:[\/|\?](?:[\w#!:\.\?\+=&@!$'~*,;\/\(\)\[\]\-]|%[0-9a-f]{2})*)?$/)
 let pool
+const db = require('./db/db')
 
 app.use(helmet())
 app.set('view engine', 'ejs')
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 app.use(cors())
+
+const rutaQuiubas = require('./routes/quiubas.js')
+
+app.use(rutaQuiubas)
 
 app.post('/acortador', async (req, res) => {
   req.body.usuario = 'marcademo'
@@ -70,8 +75,9 @@ app.get('*',(req,res)=>{
 })
 
 ;(async () => {
-  pool = new sql.ConnectionPool(sqlConfig.prod)
-  await pool.connect()
+  // pool = new sql.ConnectionPool(sqlConfig.prod)
+  // await pool.connect()
+  pool = await db.getConn()
   https
 	.createServer(
 		{
@@ -87,7 +93,8 @@ app.get('*',(req,res)=>{
 })()
 
 /* ;(async () => {
-  pool = new sql.ConnectionPool(sqlConfig.dev)
-  await pool.connect()
+  // pool = new sql.ConnectionPool(sqlConfig.dev)
+  // await pool.connect() 
+  pool = await db.getConn()
   app.listen( 8080 , () => console.log(`Server on`));
 })() */
