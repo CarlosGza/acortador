@@ -18,7 +18,7 @@ async function getConn() {
 function log(info) {
 	let hr = getDateTime()
 	let archivoLog = getDate()
-	fs.appendFileSync(`./logs/logdb.${archivoLog}`, `${hr} | ${info}\r\n`)
+	//fs.appendFileSync(`./logs/logdb.${archivoLog}`, `${hr} | ${info}\r\n`)
 	return
 }
 const getDateTime = () => {
