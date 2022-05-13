@@ -9,7 +9,7 @@ async function getConn() {
     return conn
   }
   log('crea nueva conexion')
-  conn = new sql.ConnectionPool(dbconfig.dev)
+  conn = new sql.ConnectionPool(dbconfig.prod)
   await conn.connect()
   return conn
 }
