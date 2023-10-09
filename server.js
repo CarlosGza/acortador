@@ -4,12 +4,12 @@ const sql = require('mssql')
 const app = express()
 const https = require('https')
 const urlDominio = 'https://mtel.ai/'
-const sqlConfig = require('./sqlconfig/config.json')
+// const sqlConfig = require('./sqlconfig/config.json')
 const shortId = require('shortid')
 const cors = require('cors')
 const helmet = require('helmet')
 const portSec = 443
-const portUnsec = 80
+// const portUnsec = 80
 let regex = new RegExp(/^(http|https):\/\/(?:(?:(?:[\w\.\-\+!$&'\(\)*\+,;=]|%[0-9a-f]{2})+:)*(?:[\w\.\-\+%!$&'\(\)*\+,;=]|%[0-9a-f]{2})+@)?(?:(?:[a-z0-9\-\.]|%[0-9a-f]{2})+|(?:\[(?:[0-9a-f]{0,4}:)*(?:[0-9a-f]{0,4})\]))(?::[0-9]+)?(?:[\/|\?](?:[\w#!:\.\?\+=&@!$'~*,;\/\(\)\[\]\-]|%[0-9a-f]{2})*)?$/)
 let pool
 const db = require('./db/db')
@@ -21,8 +21,10 @@ app.use(express.json())
 app.use(cors())
 
 const rutaQuiubas = require('./routes/quiubas.js')
+const rutaSMSReader = require('./routes/smsreader.js')
 
 app.use(rutaQuiubas)
+app.use(rutaSMSReader)
 
 app.post('/acortador', async (req, res) => {
   req.body.usuario = 'marcademo'
@@ -32,7 +34,7 @@ app.post('/acortador', async (req, res) => {
     return res.status(401).json({ descripcion: 'credenciales invalidas' })
   if (req.body.fullUrl == undefined || !regex.test(req.body.fullUrl))
     return res.status(400).json({ descripcion: 'url invalida' })
-  
+
   try {
     let pass = new Buffer.from(req.body.password)
     let encodedPass = pass.toString('base64')
@@ -63,34 +65,34 @@ app.get('/:shortUrl', async (req, res) => {
     // shortUrl.save()
 
     res.redirect(shortUrl.recordset[0].full)
-    
+
   } catch (err) {
     console.log(err)
     res.sendStatus(404)
   }
 })
 
-app.get('*',(req,res)=>{
+app.get('*', (req, res) => {
   res.send('ruta invalida')
 })
 
-;(async () => {
-  // pool = new sql.ConnectionPool(sqlConfig.prod)
-  // await pool.connect()
-  pool = await db.getConn()
-  https
-	.createServer(
-		{
-			cert: fs.readFileSync('/etc/letsencrypt/live/mtel.ai/fullchain.pem'),
-			key: fs.readFileSync('/etc/letsencrypt/live/mtel.ai/privkey.pem'),
-		},
-		app
-	)
-	.listen(portSec, () => {
-		console.log(`running on port ${portSec}`)
-	}) 
-  
-})()
+  ; (async () => {
+    // pool = new sql.ConnectionPool(sqlConfig.prod)
+    // await pool.connect()
+    pool = await db.getConn()
+    https
+      .createServer(
+        {
+          cert: fs.readFileSync('/etc/letsencrypt/live/mtel.ai/fullchain.pem'),
+          key: fs.readFileSync('/etc/letsencrypt/live/mtel.ai/privkey.pem'),
+        },
+        app
+      )
+      .listen(portSec, () => {
+        console.log(`running on port ${portSec}`)
+      })
+
+  })()
 
 /* ;(async () => {
   // pool = new sql.ConnectionPool(sqlConfig.dev)
